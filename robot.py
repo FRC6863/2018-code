@@ -44,6 +44,7 @@ class MyRobot (wpilib.IterativeRobot):
         self.shoot4=wpilib.Spark(7)
         self.compressor.clearAllPCMStickyFaults()   
         self.compressor.setClosedLoopControl(False)
+        self.solenoid3On=True
     
     def autonomousInit(self):
         self.t_i=time.time()
@@ -66,6 +67,7 @@ class MyRobot (wpilib.IterativeRobot):
         lt = self.leftJoystick.getRawAxis(2)
         rt = self.leftJoystick.getRawAxis(3)
 
+        
 
         if (lt>0):
             self.left.set(-1*lt)
@@ -102,7 +104,13 @@ class MyRobot (wpilib.IterativeRobot):
         else:
             self.solenoid1.set(wpilib.DoubleSolenoid.Value.kForward)
         # 
-        
+        if self.leftJoystick.getRawButton(1):
+            if not self.solenoidOn:
+                self.solenoid3On=not self.solenoid3On
+                self.solenoid3.set(wpilib.DoubleSolenoid.Value.kForward)
+            else self.solenoidOn:
+                self.solenoid3On=not self.solenoid3On
+                self.solenoid3.set(wpilib.DoubleSolenoid.Value.kReverse)
         # 
         # if not self.leftJoystick.getRawButton(2):
         #     # print("on")
@@ -112,7 +120,6 @@ class MyRobot (wpilib.IterativeRobot):
         if not self.sToggle.on:
             # print("on")
             self.solenoid2.set(wpilib.DoubleSolenoid.Value.kForward)
-            self.solenoid3.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.solenoid2.set(wpilib.DoubleSolenoid.Value.kReverse)
             self.solenoid3.set(wpilib.DoubleSolenoid.Value.kReverse)
