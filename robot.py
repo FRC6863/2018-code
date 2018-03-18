@@ -106,9 +106,11 @@ class MyRobot (wpilib.IterativeRobot):
         # 
         if self.leftJoystick.getRawButton(1):
             if not self.solenoidOn:
+                print("forward")
                 self.solenoid3On=not self.solenoid3On
                 self.solenoid3.set(wpilib.DoubleSolenoid.Value.kForward)
             else self.solenoidOn:
+                print("reverse")
                 self.solenoid3On=not self.solenoid3On
                 self.solenoid3.set(wpilib.DoubleSolenoid.Value.kReverse)
         # 
@@ -122,7 +124,7 @@ class MyRobot (wpilib.IterativeRobot):
             self.solenoid2.set(wpilib.DoubleSolenoid.Value.kForward)
         else:
             self.solenoid2.set(wpilib.DoubleSolenoid.Value.kReverse)
-            self.solenoid3.set(wpilib.DoubleSolenoid.Value.kReverse)
+            # self.solenoid3.set(wpilib.DoubleSolenoid.Value.kReverse)
         
         # 
         # 
